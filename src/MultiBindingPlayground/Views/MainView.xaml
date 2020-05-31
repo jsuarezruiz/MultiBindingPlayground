@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:MultiBindingPlayground.ViewModels"
+    xmlns:converters="clr-namespace:MultiBindingPlayground.Converters"
+    x:Class="MultiBindingPlayground.Views.MainView"
+    Title="MultiBinding Playground">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <converters:NameConverter x:Key="NameConverter" />
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <viewmodels:MainViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="12">
+            <Entry
+                Placeholder="Name"
+                Text="{Binding Name, Mode=TwoWay}"/>
+            <Entry
+                Placeholder="Surname"
+                Text="{Binding Surname, Mode=TwoWay}"/>
+            <Label>
+                <Label.Text>
+                    <MultiBinding Converter="{StaticResource NameConverter}">
+                        <Binding Path="Name"/>
+                        <Binding Path="Surname"/>
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
